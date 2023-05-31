@@ -1,11 +1,10 @@
 import Header from '@/components/Header'
-import Hero from '@/components/Hero'
 
-export default function Home() {
+export default function Inscription() {
   return (
     <>
       <Header />
-      <Hero />
+      <h1>Inscription</h1>
     </>
   )
 }

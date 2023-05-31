@@ -1,11 +1,10 @@
 import Header from '@/components/Header'
-import Hero from '@/components/Hero'
 
-export default function Home() {
+export default function Beats() {
   return (
     <>
       <Header />
-      <Hero />
+      <h1>Beats</h1>
     </>
   )
 }

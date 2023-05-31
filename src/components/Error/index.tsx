@@ -2,13 +2,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-type Props = {
+type ErrorProps = {
   statusCode: number
   title: string
   message: string
 }
 
-export default function Error({ statusCode, title, message }: Props) {
+export default function Error({ statusCode, title, message }: ErrorProps) {
   const router = useRouter()
 
   const [countDown, setCountDown] = useState(10)
