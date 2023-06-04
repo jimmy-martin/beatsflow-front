@@ -1,21 +1,22 @@
 import Hover from './Hover'
+import { Beat as BeatType } from '@/data'
 
 type BeatProps = {
-  title: string
-  username: string
-  categoryName: string
-  imageUrl?: string
+  beat: BeatType
 }
 
-export default function Beat({
-  title,
-  username,
-  categoryName,
-  imageUrl,
-}: BeatProps) {
+export default function Beat({ beat }: BeatProps) {
+  const { title, audioUrl, imageUrl, username, categoryName } = beat
+
   return (
     <div className="rounded p-3 w-full md:w-auto">
-      <Hover imageUrl={imageUrl} />
+      <Hover
+        title={title}
+        audioUrl={audioUrl}
+        imageUrl={imageUrl}
+        username={username}
+        categoryName={categoryName}
+      />
       <div className="p-5 flex justify-between">
         <div>
           <h3 className="text-lg">{title}</h3>

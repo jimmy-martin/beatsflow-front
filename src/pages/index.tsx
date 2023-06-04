@@ -1,16 +1,10 @@
-import AudioPlayer from '@/components/AudioPlayer'
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
 import Home from '@/components/Home'
-import { beatPlayed } from '@/data'
+import Layout from '@/components/Layout'
 
 export default function HomePage() {
   return (
-    <>
-      <Header />
+    <Layout>
       <Home />
-      <AudioPlayer beat={beatPlayed} />
-      <Footer />
-    </>
+    </Layout>
   )
 }

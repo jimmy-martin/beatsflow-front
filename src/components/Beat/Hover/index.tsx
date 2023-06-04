@@ -1,15 +1,26 @@
+import { AudioContext } from '@/contexts/audioContext'
+import { Beat } from '@/data'
 import Image from 'next/image'
+import { useContext } from 'react'
 
-type HoverProps = {
-  imageUrl?: string
-}
+export default function Hover(beat: Beat) {
+  const { title, audioUrl, imageUrl, username, categoryName } = beat
 
-export default function Hover({ imageUrl }: HoverProps) {
+  const audioContext = useContext(AudioContext)
+
+  if (!audioContext) {
+    throw new Error("AudioContext doesn't exist")
+  }
+
+  const { playBeat } = audioContext
+  const handleClickOnPlayButton = () => {
+    playBeat({ title, audioUrl, imageUrl, username, categoryName })
+  }
   return (
     <div className="group relative">
       <Image
         className="w-full md:w-72 block rounded mx-auto"
-        src={imageUrl ?? '/assets/placeholders/home-beats-placeholder.png'}
+        src={imageUrl}
         alt=""
         width={150}
         height={150}
@@ -28,7 +39,10 @@ export default function Hover({ imageUrl }: HoverProps) {
           </svg>
         </button>
 
-        <button className="hover:scale-110 text-white opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+        <button
+          onClick={handleClickOnPlayButton}
+          className="hover:scale-110 text-white opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="40"

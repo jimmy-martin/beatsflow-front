@@ -1,36 +1,51 @@
-export const beatPlayed = {
-  title: 'Reflected Light',
-  audioUrl: '/beats/reflected-light-147979.mp3',
-  imageUrl: '/assets/reflected-light.webp',
-  username: 'totoonthebeat',
+export type Beat = {
+  title: string
+  audioUrl: string
+  imageUrl: string
+  username: string
+  categoryName: string
 }
 
 export const homeBeats = [
   {
     title: 'Son 1',
+    audioUrl: '/beats/reflected-light-147979.mp3',
     username: 'totoonthebeat',
     categoryName: 'Trap',
-    imageUrl: undefined,
+    imageUrl: '/assets/reflected-light.webp',
   },
   {
     title: 'Son 2',
-    username: 'toto',
-    categoryName: 'Drill',
-    imageUrl: undefined,
+    audioUrl: '/beats/a-call-to-the-soul-149262.mp3',
+    username: 'totoonthebeat',
+    categoryName: 'Rap',
+    imageUrl: '/assets/placeholders/home-beats-placeholder.png',
   },
   {
     title: 'Son 3',
-    username: 'totoonthebeat',
-    categoryName: 'Rap',
-    imageUrl: undefined,
+    audioUrl: '/beats/reflected-light-147979.mp3',
+    username: 'toto',
+    categoryName: 'Drill',
+    imageUrl: '/assets/reflected-light.webp',
   },
   {
     title: 'Son 4',
+    audioUrl: '/beats/my-universe-147152.mp3',
     username: 'totoonthebeat',
     categoryName: 'Afro',
-    imageUrl: undefined,
+    imageUrl: '/assets/placeholders/home-beats-placeholder.png',
   },
 ]
+
+// export const beatPlayed = homeBeats[2]
+
+export const beatPlayed: Beat = {
+  title: '',
+  audioUrl: '',
+  imageUrl: '',
+  username: '',
+  categoryName: '',
+}
 
 export const posts = [
   {
