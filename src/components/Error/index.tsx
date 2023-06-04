@@ -43,9 +43,9 @@ export default function Error({ statusCode, title, message }: ErrorProps) {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/"
-              className="block py-2 px-4 text-white font-medium bg-green-400 duration-150 hover:bg-green-300 active:bg-green-500 rounded-lg"
+              className="block py-2 px-4 text-white font-medium bg-beatsflow-light-green duration-150 hover:bg-green-300 active:bg-green-500 rounded-lg"
             >
-              Revenir en arrière
+              Revenir à l&apos;accueil
             </Link>
           </div>
         </div>
