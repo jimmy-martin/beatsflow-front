@@ -1,4 +1,3 @@
-import logoSimple from '../../../public/assets/logos/logo-simple.png'
 import RedirectionButton from '../RedirectionButton'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,7 +10,7 @@ export default function Header() {
   const router = useRouter()
 
   const navigation = [
-    { title: 'A PROPOS', path: '/about' },
+    { title: 'A PROPOS', path: '/a-propos' },
     { title: 'BEATS', path: '/beats' },
     { title: 'ACTUALITES', path: '/actualites' },
     { title: 'CONNEXION', path: '/connexion' },
@@ -23,7 +22,12 @@ export default function Header() {
         <div className="items-center px-4 max-w-screen-xl mx-auto lg:flex">
           <div className="flex items-center justify-between py-1 lg:block">
             <Link href="/">
-              <Image src={logoSimple} width={80} height={30} alt="logo" />
+              <Image
+                src="/assets/logo-simple.png"
+                width={80}
+                height={30}
+                alt="logo"
+              />
             </Link>
             <div className="lg:hidden">
               <button

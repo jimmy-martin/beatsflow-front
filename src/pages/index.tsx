@@ -1,11 +1,16 @@
+import AudioPlayer from '@/components/AudioPlayer'
+import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Hero from '@/components/Hero'
+import Home from '@/components/Home'
+import { beatPlayed } from '@/data'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Header />
-      <Hero />
+      <Home />
+      <AudioPlayer beat={beatPlayed} />
+      <Footer />
     </>
   )
 }
