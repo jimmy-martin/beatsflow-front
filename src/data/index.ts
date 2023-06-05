@@ -1,50 +1,24 @@
-export type Beat = {
-  title: string
-  audioUrl: string
-  imageUrl: string
-  username: string
-  categoryName: string
-}
+import { BeatType } from '@/types/beat'
 
-export const homeBeats = [
-  {
-    title: 'Son 1',
-    audioUrl: '/beats/reflected-light-147979.mp3',
-    username: 'totoonthebeat',
-    categoryName: 'Trap',
-    imageUrl: '/assets/reflected-light.webp',
-  },
-  {
-    title: 'Son 2',
-    audioUrl: '/beats/a-call-to-the-soul-149262.mp3',
-    username: 'totoonthebeat',
-    categoryName: 'Rap',
-    imageUrl: '/assets/placeholders/home-beats-placeholder.png',
-  },
-  {
-    title: 'Son 3',
-    audioUrl: '/beats/reflected-light-147979.mp3',
-    username: 'toto',
-    categoryName: 'Drill',
-    imageUrl: '/assets/reflected-light.webp',
-  },
-  {
-    title: 'Son 4',
-    audioUrl: '/beats/my-universe-147152.mp3',
-    username: 'totoonthebeat',
-    categoryName: 'Afro',
-    imageUrl: '/assets/placeholders/home-beats-placeholder.png',
-  },
-]
-
-// export const beatPlayed = homeBeats[2]
-
-export const beatPlayed: Beat = {
+export const defaultEmptyBeat: BeatType = {
+  id: 0,
   title: '',
-  audioUrl: '',
-  imageUrl: '',
-  username: '',
-  categoryName: '',
+  file_path: '',
+  image_url: '',
+  price: 0,
+  tempo: 0,
+  description: '',
+  created_at: new Date(),
+  updated_at: new Date(),
+  user_id: 0,
+  category_id: 0,
+  user: {
+    username: '',
+  },
+  category: {
+    id: 0,
+    name: '',
+  },
 }
 
 export const posts = [
@@ -75,12 +49,4 @@ export const posts = [
     date: 'Jan 4 2022',
     href: '#',
   },
-]
-
-export const homeCategories = [
-  { name: 'Trap', imageUrl: '/assets/categories/trap.png' },
-  { name: 'Drill', imageUrl: '/assets/categories/drill.png' },
-  { name: 'Afro', imageUrl: '/assets/categories/afro.png' },
-  { name: 'Cloud', imageUrl: '/assets/categories/cloud.png' },
-  { name: 'Rock', imageUrl: '/assets/categories/rock.png' },
 ]

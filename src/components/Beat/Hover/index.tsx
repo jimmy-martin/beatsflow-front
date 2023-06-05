@@ -1,10 +1,10 @@
 import { AudioContext } from '@/contexts/audioContext'
-import { Beat } from '@/data'
+import { BeatType } from '@/types/beat'
 import Image from 'next/image'
 import { useContext } from 'react'
 
-export default function Hover(beat: Beat) {
-  const { title, audioUrl, imageUrl, username, categoryName } = beat
+export default function Hover({ beat }: { beat: BeatType }) {
+  const { image_url } = beat
 
   const audioContext = useContext(AudioContext)
 
@@ -13,14 +13,16 @@ export default function Hover(beat: Beat) {
   }
 
   const { playBeat } = audioContext
-  const handleClickOnPlayButton = () => {
-    playBeat({ title, audioUrl, imageUrl, username, categoryName })
+  const handleClickOnPlayButton = (event: MouseEvent) => {
+    event.stopPropagation()
+    playBeat(beat)
   }
+
   return (
     <div className="group relative">
       <Image
         className="w-full md:w-72 block rounded mx-auto"
-        src={imageUrl}
+        src={image_url}
         alt=""
         width={150}
         height={150}

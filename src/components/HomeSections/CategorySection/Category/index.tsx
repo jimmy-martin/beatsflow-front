@@ -1,8 +1,8 @@
+import { CategoryType } from '@/types/category'
 import Image from 'next/image'
 
 type CategoryProps = {
-  name: string
-  imageUrl: string
+  category: CategoryType
   isFirst: boolean
   isLast: boolean
   currentId: number
@@ -10,8 +10,7 @@ type CategoryProps = {
 }
 
 export default function Category({
-  name,
-  imageUrl,
+  category,
   isFirst,
   isLast,
   currentId,
@@ -23,10 +22,15 @@ export default function Category({
       className="carousel-item relative w-full justify-center"
     >
       <div className="relative">
-        <div className="w-24 rounded-full">
-          <Image src={imageUrl} width={100} height={100} alt={name} />
+        <div className="w-24 rounded-full mx-auto">
+          <Image
+            src={category.image_url}
+            width={100}
+            height={100}
+            alt={category.name}
+          />
         </div>
-        <p className="text-center text-black font-bold m-3">{name}</p>
+        <p className="text-center text-black font-bold m-3">{category.name}</p>
       </div>
       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
         {isFirst ? (

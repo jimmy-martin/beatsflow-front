@@ -1,22 +1,33 @@
 import HomeSection from '../HomeSection'
 import Category from './Category'
-import { homeCategories } from '@/data'
+import httpClient from '@/axiosInstance'
+import { CategoryType } from '@/types/category'
+import { useEffect, useState } from 'react'
 
 export default function CategorySection() {
-  const lastIndex = homeCategories.length - 1
+  const [categories, setCategories] = useState<CategoryType[]>([])
+
+  useEffect(() => {
+    httpClient
+      .get('/categories')
+      .then((response) => setCategories(response.data))
+      .catch((error) => console.log(error))
+  }, [])
+
+  const lastIndex = categories.length - 1
+  const lastCategory = categories[lastIndex]
 
   return (
     <HomeSection title="LES GENRES MUSICAUX" seeMoreHref="/beats">
       <div className="carousel w-full">
-        {homeCategories.map((beat, idx) => {
+        {categories.map((category) => {
           return (
             <Category
-              key={idx}
-              name={beat.name}
-              imageUrl={beat.imageUrl}
-              isFirst={idx === 0}
-              isLast={idx === lastIndex}
-              currentId={idx}
+              key={category.id}
+              category={category}
+              isFirst={category.id === 0}
+              isLast={category.id === lastCategory.id}
+              currentId={category.id}
               lastId={lastIndex}
             />
           )

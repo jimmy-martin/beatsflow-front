@@ -1,13 +1,14 @@
 'use client'
 
 import AudioPlayer from '@/components/AudioPlayer'
-import { Beat, beatPlayed } from '@/data'
+import { defaultEmptyBeat } from '@/data'
+import { BeatType } from '@/types/beat'
 import { createContext, useState } from 'react'
 
 type AudioContextType = {
-  currentTrack: Beat
-  setCurrentTrack: React.Dispatch<React.SetStateAction<Beat>>
-  playBeat: (beat: Beat) => void
+  currentTrack: BeatType
+  setCurrentTrack: React.Dispatch<React.SetStateAction<BeatType>>
+  playBeat: (beat: BeatType) => void
 }
 
 type AudioProviderType = {
@@ -19,9 +20,9 @@ export const AudioContext = createContext<AudioContextType | undefined>(
 )
 
 export default function AudioProvider({ children }: AudioProviderType) {
-  const [currentTrack, setCurrentTrack] = useState(beatPlayed)
+  const [currentTrack, setCurrentTrack] = useState<BeatType>(defaultEmptyBeat)
 
-  const playBeat = (beat: Beat) => {
+  const playBeat = (beat: BeatType) => {
     setCurrentTrack(beat)
   }
 
