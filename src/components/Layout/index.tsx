@@ -1,8 +1,6 @@
-import AudioPlayer from '../AudioPlayer'
 import Footer from '../Footer'
 import Header from '../Header'
-import { AudioContext } from '@/contexts/audioContext'
-import React, { useContext } from 'react'
+import React from 'react'
 
 type LayoutProps = {
   children: React.ReactNode

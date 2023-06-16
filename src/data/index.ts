@@ -1,23 +1,34 @@
-import { BeatType } from '@/types/beat'
+import { BeatInterface } from '@/types/beat'
 
-export const defaultEmptyBeat: BeatType = {
+export const defaultEmptyBeat: BeatInterface = {
   id: 0,
   title: '',
-  file_path: '',
+  url: '',
   image_url: '',
   price: 0,
   tempo: 0,
   description: '',
-  created_at: new Date(),
-  updated_at: new Date(),
-  user_id: 0,
+  created_at: '',
+  updated_at: '',
+  user_id: '0',
   category_id: 0,
   user: {
+    id: '',
     username: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+    avatar_url: '',
+    created_at: '',
+    updated_at: '',
   },
   category: {
     id: 0,
     name: '',
+    description: '',
+    image_url: '',
+    created_at: '',
+    updated_at: '',
   },
 }
 

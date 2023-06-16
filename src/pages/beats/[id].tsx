@@ -1,45 +1,79 @@
-import httpClient from '@/axiosInstance'
 import Beat from '@/components/Beat'
 import Layout from '@/components/Layout'
-import { BeatType } from '@/types/beat'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
+import { BeatInterface } from '@/types/beat'
+import { CategoryInterface } from '@/types/category'
+import { UserInterface } from '@/types/user'
+import { GetServerSideProps } from 'next'
 
-export default function BeatPage() {
-  const router = useRouter()
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { params } = context
+  if (!params) return { props: {} }
 
-  const [beat, setBeat] = useState<BeatType>()
-  const [similarBeats, setSimilarBeats] = useState<BeatType[]>()
+  const id = params.id
 
-  const { id } = router.query
+  const { data: beat, error } = await supabase
+    .from('beat')
+    .select('*')
+    .eq('id', id)
+    .single()
 
-  useEffect(() => {
-    httpClient
-      .get(`/beats/similar/${id}`)
-      .then((response) => {
-        setBeat(response.data.beat)
-        setSimilarBeats(response.data.similarBeats)
-      })
-      .catch((error) => console.log(error))
-  }, [id])
+  if (error) console.log('Error: ', error)
+  if (!beat) return { props: {} }
 
-  console.log(beat)
-  console.log(similarBeats)
+  const { data: similarBeats } = await supabase
+    .from('beat')
+    .select('*')
+    .eq('user_id', beat.user_id)
+    .neq('id', beat.id)
+    .limit(4)
 
-  if (!beat || !similarBeats) {
-    return <div>Chargement...</div>
+  const { data: user, error: userError } = await supabase
+    .from('user')
+    .select('*')
+    .eq('id', beat.user_id)
+    .single()
+
+  const { data: category, error: categoryError } = await supabase
+    .from('category')
+    .select('*')
+    .eq('id', beat.category_id)
+    .single()
+
+  if (userError) console.log('Error: ', userError)
+  if (categoryError) console.log('Error: ', categoryError)
+
+  return {
+    props: {
+      beat,
+      user,
+      category,
+      similarBeats,
+    },
   }
+}
 
+export default function BeatPage({
+  beat,
+  user,
+  category,
+  similarBeats,
+}: {
+  beat: BeatInterface
+  user: UserInterface
+  category: CategoryInterface
+  similarBeats: BeatInterface[]
+}) {
   return (
     <Layout>
       <div className="text-center">
         <h1 className="text-center text-4xl font-bold my-6">{beat.title}</h1>
         <p>
-          <span className="text-gray-400">{beat.user.username}</span>
+          <span className="text-gray-400">{user.username}</span>
         </p>
         <p className="my-2">
           <span className="bg-red-600 text-red-200 text-xs font-medium mr-2 px-4 py-2 rounded-xl">
-            {beat.category.name}
+            {category.name}
           </span>
         </p>
       </div>
@@ -75,11 +109,11 @@ export default function BeatPage() {
         <section>
           <div className="max-w-screen-xl mx-auto px-4 md:px-8 text-center">
             <h2 className="text-2xl font-bold my-4">
-              Autres beats de {beat.user.username}
+              Autres beats de {user.username}
             </h2>
             <div className="grid gap-x-8 gap-y-10 mt-4 sm:grid-cols-2 lg:grid-cols-4">
               {similarBeats.map((beat) => (
-                <Beat beat={beat} key={beat.id} />
+                <Beat key={beat.id} beat={beat} />
               ))}
             </div>
           </div>

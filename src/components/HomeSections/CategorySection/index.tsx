@@ -1,17 +1,19 @@
+import { supabase } from '@/lib/supabaseClient'
+import { CategoryInterface } from '@/types/category'
+import { useEffect, useState } from 'react'
 import HomeSection from '../HomeSection'
 import Category from './Category'
-import httpClient from '@/axiosInstance'
-import { CategoryType } from '@/types/category'
-import { useEffect, useState } from 'react'
 
 export default function CategorySection() {
-  const [categories, setCategories] = useState<CategoryType[]>([])
+  const [categories, setCategories] = useState<CategoryInterface[]>([])
+
+  async function getCategories() {
+    const { data } = await supabase.from('category').select()
+    if (data) setCategories(data)
+  }
 
   useEffect(() => {
-    httpClient
-      .get('/categories')
-      .then((response) => setCategories(response.data))
-      .catch((error) => console.log(error))
+    getCategories()
   }, [])
 
   const lastIndex = categories.length - 1

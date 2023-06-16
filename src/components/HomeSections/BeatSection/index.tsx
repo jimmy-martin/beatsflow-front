@@ -1,17 +1,24 @@
 import HomeSection from '../HomeSection'
-import httpClient from '@/axiosInstance'
 import Beat from '@/components/Beat'
-import { BeatType } from '@/types/beat'
+import { supabase } from '@/lib/supabaseClient'
+import { BeatInterface } from '@/types/beat'
 import { useEffect, useState } from 'react'
 
 export default function BeatSection() {
-  const [beats, setBeats] = useState<BeatType[]>([])
+  const [beats, setBeats] = useState<BeatInterface[]>([])
+
+  async function getLatestBeats() {
+    const { data } = await supabase
+      .from('beat')
+      .select()
+      .limit(4)
+      .order('created_at', { ascending: false })
+
+    if (data) setBeats(data)
+  }
 
   useEffect(() => {
-    httpClient
-      .get('/beats/home')
-      .then((response) => setBeats(response.data))
-      .catch((error) => console.log(error))
+    getLatestBeats()
   }, [])
 
   return (

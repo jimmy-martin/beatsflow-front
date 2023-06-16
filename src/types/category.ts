@@ -1,8 +1,8 @@
-export type CategoryType = {
+export interface CategoryInterface {
+  created_at: string
+  description: string | null
   id: number
-  name: string
-  description?: string
   image_url: string
-  created_at: Date
-  updated_at: Date
+  name: string
+  updated_at: string | null
 }

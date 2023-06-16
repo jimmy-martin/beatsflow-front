@@ -1,6 +1,6 @@
-import HomeSection from '../HomeSection'
 import Post from '@/components/Post'
 import { posts } from '@/data'
+import HomeSection from '../HomeSection'
 
 export default function NewsSection() {
   return (

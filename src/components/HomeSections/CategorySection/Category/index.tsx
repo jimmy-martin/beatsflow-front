@@ -1,8 +1,8 @@
-import { CategoryType } from '@/types/category'
+import { CategoryInterface } from '@/types/category'
 import Image from 'next/image'
 
 type CategoryProps = {
-  category: CategoryType
+  category: CategoryInterface
   isFirst: boolean
   isLast: boolean
   currentId: number

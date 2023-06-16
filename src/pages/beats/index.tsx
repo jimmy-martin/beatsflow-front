@@ -1,38 +1,62 @@
-import httpClient from '@/axiosInstance'
 import Beat from '@/components/Beat'
 import FilterPanel from '@/components/FilterPanel'
 import Layout from '@/components/Layout'
-import { BeatType } from '@/types/beat'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
+import { BeatInterface } from '@/types/beat'
+import { CategoryInterface } from '@/types/category'
+import { GetServerSideProps } from 'next'
+import { useState } from 'react'
 
-export default function Beats() {
-  const router = useRouter()
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context
+  const categoryId = query.categorie
 
-  const [beats, setBeats] = useState<BeatType[]>([])
+  const { data: categories, error: categoriesError } = await supabase
+    .from('category')
+    .select('*')
+
+  if (categoriesError) console.log('Error: ', categoriesError)
+
+  if (!categoryId) {
+    const { data: beats, error } = await supabase
+      .from('beat')
+      .select(`*, user (username)`)
+    if (error) console.log('Error: ', error)
+    return {
+      props: {
+        initialBeats: beats,
+        categories,
+      },
+    }
+  } else {
+    const { data: beats, error } = await supabase
+      .from('beat')
+      .select(`*, user (username)`)
+      .eq('category_id', categoryId)
+    if (error) console.log('Error: ', error)
+    return {
+      props: {
+        initialBeats: beats,
+        categories,
+      },
+    }
+  }
+}
+
+export default function Beats({
+  initialBeats,
+  categories,
+}: {
+  initialBeats: BeatInterface[]
+  categories: CategoryInterface[]
+}) {
   const [searchValue, setSearchValue] = useState('')
 
-  const selectedCategoryId = router.query.categorie
-
-  useEffect(() => {
-    httpClient
-      .get('/beats/home')
-      .then((response) => setBeats(response.data))
-      .catch((error) => console.log(error))
-  }, [])
-
-  const filteredBeats = beats.filter((beat) => {
-    if (
-      selectedCategoryId &&
-      beat.category_id !== parseInt(selectedCategoryId as string)
-    ) {
-      return false
-    }
-
+  const filteredBeats = initialBeats.filter((beat) => {
     const searchTerm = searchValue.toLowerCase()
     return (
       beat.title.toLowerCase().includes(searchTerm) ||
-      beat.user.username.toLowerCase().includes(searchTerm)
+      beat.user?.username.toLowerCase().includes(searchTerm)
     )
   })
 
@@ -65,7 +89,7 @@ export default function Beats() {
         </div>
       </form>
       <div className="container mx-auto">
-        <FilterPanel />
+        <FilterPanel categories={categories} />
         <section className="py-8">
           {filteredBeats.length === 0 && (
             <p className="text-center text-gray-400">

@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-key */
 import AudioPlayerDescription from './components/Description'
-import { BeatType } from '@/types/beat'
+import { BeatInterface } from '@/types/beat'
 import { useRouter } from 'next/router'
 import H5AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 
-export default function AudioPlayer({ beat }: { beat: BeatType }) {
-  const { title, file_path, image_url } = beat
+export default function AudioPlayer({ beat }: { beat: BeatInterface }) {
+  const { title, url, image_url } = beat
 
   const router = useRouter()
 
@@ -20,12 +20,12 @@ export default function AudioPlayer({ beat }: { beat: BeatType }) {
   return (
     <div className="sticky bottom-0">
       <H5AudioPlayer
-        src={file_path}
+        src={url}
         autoPlay
         customAdditionalControls={[
           <AudioPlayerDescription
             title={title}
-            username={beat.user.username}
+            username={beat.user?.username || ''}
             imageUrl={image_url}
           />,
         ]}

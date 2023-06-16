@@ -1,21 +1,13 @@
-import httpClient from '@/axiosInstance'
-import { CategoryType } from '@/types/category'
+import { CategoryInterface } from '@/types/category'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
-export default function FilterPanel() {
-  const [categories, setCategories] = useState<CategoryType[]>([])
-
+export default function FilterPanel({
+  categories,
+}: {
+  categories: CategoryInterface[]
+}) {
   const router = useRouter()
-
-  useEffect(() => {
-    httpClient
-      .get('/categories')
-      .then((response) => setCategories(response.data))
-      .catch((error) => console.log(error))
-  }, [])
-
   const selectedCategoryId = parseInt(router.query.categorie as string)
 
   return (
