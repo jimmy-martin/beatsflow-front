@@ -12,6 +12,7 @@ module.exports = {
         'beatsflow-green': '#58B3B4',
         'beatsflow-light-green': '#00EF7E',
         'beatsflow-light-white': '#F8F9FA',
+        'beatsflow-green-hover': '#408D8E',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

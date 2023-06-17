@@ -18,15 +18,18 @@ export default function Footer() {
         <Link href="/beats" className="link link-hover">
           Beats
         </Link>
-        <Link href="/actualites" className="link link-hover">
+        {/* <Link href="/actualites" className="link link-hover">
           Actualités
+        </Link> */}
+        <Link href="/nos-offres" className="link link-hover">
+          Nos offres
         </Link>
       </div>
       <div>
         <span className="footer-title">BeatsFlow</span>
-        <Link href="/a-propos" className="link link-hover">
+        {/* <Link href="/a-propos" className="link link-hover">
           À propos
-        </Link>
+        </Link> */}
         <Link href="/connexion" className="link link-hover">
           Connexion
         </Link>
@@ -36,9 +39,11 @@ export default function Footer() {
       </div>
       <div>
         <span className="footer-title">Légal</span>
-        <a className="link link-hover">Termes et conditions</a>
-        <a className="link link-hover">Politique des cookies</a>
-        <a className="link link-hover">Politique de confidentialité</a>
+        <Link href="/termes-et-conditions" className="link link-hover">
+          Termes et conditions
+        </Link>
+        {/* <a className="link link-hover">Politique des cookies</a> */}
+        <Link href="/politique-de-confidentialite" className="link link-hover">Politique de confidentialité</Link>
       </div>
       <div>
         <span className="footer-title">Réseaux sociaux</span>

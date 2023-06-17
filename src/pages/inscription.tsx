@@ -1,4 +1,5 @@
 import { AuthContext } from '@/contexts/authContext'
+import useAuthContext from '@/helpers/useAuthContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -6,17 +7,12 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 
 export default function Registration() {
   const router = useRouter()
-  const authContext = useContext(AuthContext)
 
-  if (!authContext) {
-    throw new Error('AuthContext is not defined')
-  }
-
-  const { register, isLoggedUser } = authContext
+  const { register, isLoggedUser } = useAuthContext()
 
   useEffect(() => {
     if (isLoggedUser()) router.push('/')
-  }, [])
+  }, [isLoggedUser])
 
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')

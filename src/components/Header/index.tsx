@@ -1,5 +1,5 @@
 import RedirectionButton from '../RedirectionButton'
-import { useAuthContext } from '@/helpers/useAuthContext'
+import useAuthContext from '@/helpers/useAuthContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -14,9 +14,7 @@ export default function Header() {
 
   const router = useRouter()
 
-  const navigation = [
-    { title: 'BEATS', path: '/beats' },
-  ]
+  const navigation = [{ title: 'BEATS', path: '/beats' }]
 
   if (!isLoggedUser()) {
     navigation.push({ title: 'CONNEXION', path: '/connexion' })
@@ -83,7 +81,6 @@ export default function Header() {
                   <li key={idx} className="mt-4 lg:mt-0">
                     <Link
                       href={item.path}
-                      onClick={item.onClick}
                       className={`${
                         router.pathname === item.path
                           ? 'underline underline-offset-8'

@@ -1,13 +1,16 @@
+import useAuthContext from '@/helpers/useAuthContext'
 import { supabase } from '@/lib/supabaseClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 export default function Connection() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const { isLoggedUser } = useAuthContext()
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -24,6 +27,10 @@ export default function Connection() {
 
     router.push('/')
   }
+
+  useEffect(() => {
+    if (isLoggedUser()) router.push('/')
+  }, [isLoggedUser])
   return (
     <>
       <div className="w-full h-screen flex flex-col items-center justify-center px-4">

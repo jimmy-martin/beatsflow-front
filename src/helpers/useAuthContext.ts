@@ -1,11 +1,11 @@
 import { AuthContext } from '@/contexts/authContext'
 import { useContext } from 'react'
 
-export const useAuthContext = () => {
+export default function useAuthContext() {
   const authContext = useContext(AuthContext)
 
   if (!authContext) {
-    throw new Error('useAuthContext must be used within a AuthContextProvider')
+    throw new Error('useAuthContext must be used within an AuthProvider')
   }
 
   return authContext
