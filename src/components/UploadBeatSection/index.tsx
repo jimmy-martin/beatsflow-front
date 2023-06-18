@@ -16,6 +16,16 @@ export default function UploadBeatSection() {
   const [audio, setAudio] = useState<File | null>(null)
   const [categories, setCategories] = useState<CategoryInterface[]>([])
 
+  const uploadFile = async (bucket: string, file: File, path: string) => {
+    const { data: fileData } = await supabase.storage
+      .from(bucket)
+      .upload(path, file)
+
+    const { data } = supabase.storage.from(bucket).getPublicUrl(fileData!.path)
+
+    return data.publicUrl
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (!loggedUser) return
 
@@ -30,32 +40,22 @@ export default function UploadBeatSection() {
     formData.append('category_id', categoryId)
     formData.append('user_id', loggedUser.id)
 
-    if (image) {
-      const newImageName = `${loggedUser.id}/${new Date().getTime()}_${title}`
+    if (image && audio) {
+      const imageUrl = await uploadFile(
+        'beats_images',
+        image,
+        `${loggedUser.id}/${new Date().getTime()}_${title}`
+      )
 
-      const { data: imageData } = await supabase.storage
-        .from('beats_images')
-        .upload(newImageName, image)
+      formData.append('image_url', imageUrl)
 
-      const { data } = supabase.storage
-        .from('beats_images')
-        .getPublicUrl(imageData!.path)
+      const url = await uploadFile(
+        'beats',
+        audio,
+        `${loggedUser.id}/${new Date().getTime()}_${title}`
+      )
 
-      formData.append('image_url', data.publicUrl)
-    }
-
-    if (audio) {
-      const newAudioName = `${loggedUser.id}/${new Date().getTime()}_${title}`
-
-      const { data: audioData } = await supabase.storage
-        .from('beats')
-        .upload(newAudioName, audio)
-
-      const { data } = supabase.storage
-        .from('beats')
-        .getPublicUrl(audioData!.path)
-
-      formData.append('url', data.publicUrl)
+      formData.append('url', url)
     }
 
     createBeat({
@@ -70,12 +70,12 @@ export default function UploadBeatSection() {
     })
   }
 
-  useEffect(() => {
-    const loadCategories = async () => {
-      const { data } = await supabase.from('category').select('*')
-      if (data) setCategories(data)
-    }
+  const loadCategories = async () => {
+    const { data } = await supabase.from('category').select('*')
+    if (data) setCategories(data)
+  }
 
+  useEffect(() => {
     loadCategories()
   }, [])
 
