@@ -11,7 +11,7 @@ export default function Registration() {
   const { register, isLoggedUser } = useAuthContext()
 
   useEffect(() => {
-    if (isLoggedUser()) router.push('/')
+    if (isLoggedUser) router.push('/')
   }, [isLoggedUser])
 
   const [email, setEmail] = useState('')

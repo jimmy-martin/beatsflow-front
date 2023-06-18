@@ -29,7 +29,7 @@ export default function Connection() {
   }
 
   useEffect(() => {
-    if (isLoggedUser()) router.push('/')
+    if (isLoggedUser) router.push('/')
   }, [isLoggedUser])
   return (
     <>

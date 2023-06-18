@@ -16,7 +16,7 @@ export default function Header() {
 
   const navigation = [{ title: 'BEATS', path: '/beats' }]
 
-  if (!isLoggedUser()) {
+  if (!isLoggedUser) {
     navigation.push({ title: 'CONNEXION', path: '/connexion' })
   }
 
@@ -91,7 +91,7 @@ export default function Header() {
                     </Link>
                   </li>
                 ))}
-                {isLoggedUser() && (
+                {isLoggedUser && (
                   <li className="mt-4 lg:mt-0 relative">
                     <p
                       onClick={() => setUserDropdown(!userDropdown)} // Pour ouvrir/fermer le menu lors du clic
@@ -120,7 +120,7 @@ export default function Header() {
                   </li>
                 )}
 
-                {!isLoggedUser() && (
+                {!isLoggedUser && (
                   <li className="mt-2 lg:mt-0">
                     <RedirectionButton
                       href="/inscription"

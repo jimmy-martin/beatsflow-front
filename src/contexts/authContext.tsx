@@ -6,7 +6,7 @@ import React, { createContext, useEffect, useState } from 'react'
 
 type AuthContextType = {
   loggedUser: null | UserInterface
-  isLoggedUser: () => boolean
+  isLoggedUser: boolean
   register: (email: string, password: string, username: string) => Promise<void>
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
@@ -50,9 +50,7 @@ export default function AuthProvider({ children }: AuthProviderType) {
     }
   }, [])
 
-  const isLoggedUser = () => {
-    return loggedUser !== null
-  }
+  const isLoggedUser = loggedUser !== null
 
   const register = async (
     email: string,
@@ -99,10 +97,14 @@ export default function AuthProvider({ children }: AuthProviderType) {
   }
 
   const updateUser = async (user: Partial<UserInterface>) => {
+    if (!loggedUser) {
+      throw new Error('User not logged in')
+    }
+
     const { data, error } = await supabase
       .from('user')
       .update(user)
-      .eq('id', user.id)
+      .eq('id', loggedUser.id)
       .select('*')
 
     if (error) {
