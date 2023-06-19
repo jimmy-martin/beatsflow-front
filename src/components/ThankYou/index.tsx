@@ -31,10 +31,12 @@ export default function ThankYou({ title, message }: ThankYouProps) {
     <main>
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
         <div className="max-w-lg mx-auto space-y-3 text-center">
-          <p className="text-green-400 font-semibold">BeatsFlow vous remercie pour votre achat</p>
+          <p className="text-green-400 font-semibold">
+            BeatsFlow vous remercie pour votre achat
+          </p>
           <p className="text-gray-600">
-            Vous serez redirigé vers l&apos;accueil automatiquement dans {countDown}{' '}
-            secondes.
+            Vous serez redirigé vers l&apos;accueil automatiquement dans{' '}
+            {countDown} secondes.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link

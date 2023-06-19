@@ -54,16 +54,16 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "beat_category_id_fkey"
-            columns: ["category_id"]
-            referencedRelation: "category"
-            referencedColumns: ["id"]
+            foreignKeyName: 'beat_category_id_fkey'
+            columns: ['category_id']
+            referencedRelation: 'category'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "beat_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "user"
-            referencedColumns: ["id"]
+            foreignKeyName: 'beat_user_id_fkey'
+            columns: ['user_id']
+            referencedRelation: 'user'
+            referencedColumns: ['id']
           }
         ]
       }
@@ -127,10 +127,10 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "user_id_fkey"
-            columns: ["id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: 'user_id_fkey'
+            columns: ['id']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
           }
         ]
       }

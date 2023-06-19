@@ -12,6 +12,7 @@ export const defaultEmptyBeat: BeatInterface = {
   updated_at: '',
   user_id: '0',
   category_id: 0,
+  stripe_id: '',
   user: {
     id: '',
     username: '',

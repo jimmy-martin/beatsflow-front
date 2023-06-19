@@ -7,7 +7,7 @@ const policyPoints = [
       "BeatsFlow s'engage à respecter et à protéger votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous utilisez notre application.",
   },
   {
-    title: "Collecte des informations",
+    title: 'Collecte des informations',
     content:
       'Nous recueillons des informations lorsque vous vous inscrivez sur notre site, lorsque vous vous connectez à votre compte, faites un achat, participez à un concours, et / ou lorsque vous vous déconnectez. Les informations recueillies incluent votre nom, votre adresse e-mail, numéro de téléphone, et / ou carte de crédit.',
   },

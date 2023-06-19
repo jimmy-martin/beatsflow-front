@@ -101,7 +101,9 @@ export default function BeatPage({
                     labore vel quae ea repellat expedita similique, a ducimus
                     obcaecati!
                   </p>
-                  <p className="text-2xl font-bold my-4">PRIX : {beat.price} €</p>
+                  <p className="text-2xl font-bold my-4">
+                    PRIX : {beat.price} €
+                  </p>
                   {loggedUser?.id !== beat.user_id && (
                     <button
                       className="btn bg-beatsflow-green my-4"

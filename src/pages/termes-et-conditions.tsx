@@ -43,8 +43,8 @@ export default function TermesEtConditions() {
         <div className="prose lg:prose-lg mx-auto">
           <ol>
             {terms.map((term, idx) => (
-              <li key={idx} className='my-8'>
-                <h3 className='font-bold text-xl'>{term.title}</h3>
+              <li key={idx} className="my-8">
+                <h3 className="font-bold text-xl">{term.title}</h3>
                 <p>{term.content}</p>
               </li>
             ))}

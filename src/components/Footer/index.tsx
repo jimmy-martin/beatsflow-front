@@ -43,7 +43,9 @@ export default function Footer() {
           Termes et conditions
         </Link>
         {/* <a className="link link-hover">Politique des cookies</a> */}
-        <Link href="/politique-de-confidentialite" className="link link-hover">Politique de confidentialité</Link>
+        <Link href="/politique-de-confidentialite" className="link link-hover">
+          Politique de confidentialité
+        </Link>
       </div>
       <div>
         <span className="footer-title">Réseaux sociaux</span>

@@ -1,8 +1,8 @@
+import HomeSection from '../HomeSection'
+import Category from './Category'
 import { supabase } from '@/lib/supabaseClient'
 import { CategoryInterface } from '@/types/category'
 import { useEffect, useState } from 'react'
-import HomeSection from '../HomeSection'
-import Category from './Category'
 
 export default function CategorySection() {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
