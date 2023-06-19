@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthProvider>
       <CartProvider>
         <AudioProvider>
-          <div className={raleway.className}>
+          <div className={`${raleway.className} min-h-screen flex flex-col`}>
             <Component {...pageProps} />
           </div>
         </AudioProvider>
