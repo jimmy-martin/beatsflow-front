@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient'
+import { BeatInterface } from '@/types/beat'
 
 export const createBeat = async ({
   title,
@@ -18,8 +19,8 @@ export const createBeat = async ({
   user_id: string
   url: string
   image_url: string | null
-}) => {
-  const { data, error } = await supabase
+}): Promise<BeatInterface> => {
+  const { data } = await supabase
     .from('beat')
     .insert({
       title,
@@ -34,10 +35,11 @@ export const createBeat = async ({
         'https://zucowcwtsjlptsgvimzf.supabase.co/storage/v1/object/public/beats_images/home-beats-placeholder.png',
     })
     .select('*')
+    .single()
 
-  if (error) {
-    return false
+  if (!data) {
+    throw new Error('Error creating beat')
   }
 
-  return true
+  return data
 }

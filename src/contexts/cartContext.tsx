@@ -7,6 +7,7 @@ type CartContextType = {
   total: number
   addItem: (item: BeatInterface) => void
   removeItem: (id: number) => void
+  clearCart: () => void
 }
 
 type CartProviderType = {
@@ -34,6 +35,8 @@ export const CartProvider = ({ children }: CartProviderType) => {
     setTotal(newTotal)
     if (cart.length > 0) {
       localStorage.setItem('cartItems', JSON.stringify(cart))
+    } else {
+      localStorage.removeItem('cartItems')
     }
   }, [cart])
 
@@ -56,8 +59,14 @@ export const CartProvider = ({ children }: CartProviderType) => {
     setCart(newCart)
   }
 
+  const clearCart = () => {
+    setCart([])
+  }
+
   return (
-    <CartContext.Provider value={{ cart, total, addItem, removeItem }}>
+    <CartContext.Provider
+      value={{ cart, total, addItem, removeItem, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   )

@@ -17,6 +17,7 @@ export interface Database {
           id: number
           image_url: string
           price: number
+          stripe_id: string | null
           tempo: number | null
           title: string
           updated_at: string | null
@@ -30,6 +31,7 @@ export interface Database {
           id?: number
           image_url?: string
           price: number
+          stripe_id?: string | null
           tempo?: number | null
           title: string
           updated_at?: string | null
@@ -43,6 +45,7 @@ export interface Database {
           id?: number
           image_url?: string
           price?: number
+          stripe_id?: string | null
           tempo?: number | null
           title?: string
           updated_at?: string | null

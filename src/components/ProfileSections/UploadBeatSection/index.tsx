@@ -2,9 +2,11 @@ import { createBeat } from '@/helpers/uploadBeat'
 import useAuthContext from '@/helpers/useAuthContext'
 import { supabase } from '@/lib/supabaseClient'
 import { CategoryInterface } from '@/types/category'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 export default function UploadBeatSection() {
+  const router = useRouter()
   const { loggedUser } = useAuthContext()
 
   const [title, setTitle] = useState('')
@@ -58,7 +60,7 @@ export default function UploadBeatSection() {
       formData.append('url', url)
     }
 
-    createBeat({
+    const newBeat = await createBeat({
       title: formData.get('title')!.toString(),
       description: formData.get('description')!.toString(),
       price: parseInt(formData.get('price')!.toString()),
@@ -68,6 +70,24 @@ export default function UploadBeatSection() {
       image_url: formData.get('image_url')!.toString(),
       url: formData.get('url')!.toString(),
     })
+
+    try {
+      const res = await fetch('/api/create-beat-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newBeat),
+      })
+
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
+
+      router.push(`/beats/${newBeat.id}`)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const loadCategories = async () => {

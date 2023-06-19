@@ -15,4 +15,5 @@ export interface BeatInterface {
   user_id: string
   user?: UserInterface
   category?: CategoryInterface
+  stripe_id: string | null
 }
