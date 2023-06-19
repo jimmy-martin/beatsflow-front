@@ -1,5 +1,7 @@
 import Beat from '@/components/Beat'
 import Layout from '@/components/Layout'
+import useAuthContext from '@/helpers/useAuthContext'
+import useCartContext from '@/helpers/useCartContext'
 import { supabase } from '@/lib/supabaseClient'
 import { BeatInterface } from '@/types/beat'
 import { CategoryInterface } from '@/types/category'
@@ -64,6 +66,8 @@ export default function BeatPage({
   category: CategoryInterface
   similarBeats: BeatInterface[]
 }) {
+  const { addItem } = useCartContext()
+  const { isLoggedUser, isLoadingUser, loggedUser } = useAuthContext()
   return (
     <Layout>
       <div className="text-center">
@@ -98,9 +102,14 @@ export default function BeatPage({
                     obcaecati!
                   </p>
                   <p className="text-2xl font-bold my-4">PRIX : 10 €</p>
-                  <button className="btn bg-beatsflow-green my-4">
-                    Ajouter au panier
-                  </button>
+                  {loggedUser?.id !== beat.user_id && (
+                    <button
+                      className="btn bg-beatsflow-green my-4"
+                      onClick={() => addItem(beat)}
+                    >
+                      Ajouter au panier
+                    </button>
+                  )}
                 </div>
               </section>
             </div>

@@ -7,6 +7,7 @@ import React, { createContext, useEffect, useState } from 'react'
 type AuthContextType = {
   loggedUser: null | UserInterface
   isLoggedUser: boolean
+  isLoadingUser: boolean
   register: (email: string, password: string, username: string) => Promise<void>
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
@@ -22,14 +23,20 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export default function AuthProvider({ children }: AuthProviderType) {
   const router = useRouter()
   const [loggedUser, setLoggedUser] = useState<null | UserInterface>(null)
+  const [isLoggedUser, setIsLoggedUser] = useState<boolean>(false)
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true)
 
   const fetchUser = (user: User | null) => {
     if (user) {
       getUserInfo(user.id).then((data) => {
         setLoggedUser(data)
+        setIsLoggedUser(true)
+        setIsLoadingUser(false)
       })
     } else {
       setLoggedUser(null)
+      setIsLoggedUser(false)
+      setIsLoadingUser(false)
     }
   }
 
@@ -49,8 +56,6 @@ export default function AuthProvider({ children }: AuthProviderType) {
       authListener.subscription.unsubscribe()
     }
   }, [])
-
-  const isLoggedUser = loggedUser !== null
 
   const register = async (
     email: string,
@@ -118,7 +123,15 @@ export default function AuthProvider({ children }: AuthProviderType) {
 
   return (
     <AuthContext.Provider
-      value={{ loggedUser, isLoggedUser, register, login, logout, updateUser }}
+      value={{
+        loggedUser,
+        isLoggedUser,
+        isLoadingUser,
+        register,
+        login,
+        logout,
+        updateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

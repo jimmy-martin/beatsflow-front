@@ -20,10 +20,7 @@ export default function Connection() {
       password,
     })
 
-    if (error) {
-      console.log('Erreur lors de la connexion : ', error)
-      return
-    }
+    if (error) alert('Les identifiants sont incorrects')
 
     router.push('/')
   }

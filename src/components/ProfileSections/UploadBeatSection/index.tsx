@@ -80,8 +80,7 @@ export default function UploadBeatSection() {
   }, [])
 
   return (
-    <div className="p-4 w-full">
-      <h3 className="font-bold text-xl">Upload de Beat</h3>
+    <>
       <form onSubmit={handleSubmit}>
         <div className="form-control w-full my-8">
           <label className="label">
@@ -183,6 +182,6 @@ export default function UploadBeatSection() {
           </button>
         </div>
       </form>
-    </div>
+    </>
   )
 }
