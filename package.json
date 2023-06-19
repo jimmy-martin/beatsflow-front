@@ -6,20 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format-lint": "npm run format && npm run lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.54.0",
+    "@supabase/supabase-js": "^2.25.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
+    "micro": "^10.0.1",
     "next": "13.4.4",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-h5-audio-player": "^3.8.6",
+    "stripe": "^12.9.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "daisyui": "^3.0.0",
+    "prettier": "2.8.8"
   }
 }
