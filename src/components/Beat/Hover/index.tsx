@@ -13,7 +13,7 @@ export default function Hover({ beat }: { beat: BeatInterface }) {
   }
 
   const { playBeat } = audioContext
-  const handleClickOnPlayButton = (event: MouseEvent) => {
+  const handleClickOnPlayButton = (event: React.MouseEvent) => {
     event.stopPropagation()
     playBeat(beat)
   }
