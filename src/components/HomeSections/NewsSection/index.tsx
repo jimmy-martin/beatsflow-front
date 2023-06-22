@@ -4,7 +4,7 @@ import { posts } from '@/data'
 
 export default function NewsSection() {
   return (
-    <HomeSection title="ACTUALITÉS" seeMoreHref="/actualites">
+    <HomeSection title="ACTUALITÉS" seeMoreHref="/#">
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <ul className="grid gap-5 gap-x-12 gap-y-10 mt-16 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, idx) => (
