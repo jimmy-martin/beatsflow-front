@@ -2,6 +2,8 @@ import Beat from '@/components/Beat'
 import Layout from '@/components/Layout'
 import useAuthContext from '@/helpers/useAuthContext'
 import useCartContext from '@/helpers/useCartContext'
+import useCategoriesContext from '@/helpers/useCategoriesContext'
+import useToastContext from '@/helpers/useToastContext'
 import { supabase } from '@/lib/supabaseClient'
 import { BeatInterface } from '@/types/beat'
 import { CategoryInterface } from '@/types/category'
@@ -36,20 +38,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .eq('id', beat.user_id)
     .single()
 
-  const { data: category, error: categoryError } = await supabase
-    .from('category')
-    .select('*')
-    .eq('id', beat.category_id)
-    .single()
-
   if (userError) console.log('Error: ', userError)
-  if (categoryError) console.log('Error: ', categoryError)
 
   return {
     props: {
       beat,
       user,
-      category,
       similarBeats,
     },
   }
@@ -58,16 +52,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function BeatPage({
   beat,
   user,
-  category,
   similarBeats,
 }: {
   beat: BeatInterface
   user: UserInterface
-  category: CategoryInterface
   similarBeats: BeatInterface[]
 }) {
   const { addItem } = useCartContext()
   const { isLoggedUser, isLoadingUser, loggedUser } = useAuthContext()
+  const { showToast } = useToastContext()
+
+  const { categories } = useCategoriesContext()
+  const category = categories.find((cat) => cat.id === beat.category_id)
+  if (!category) return null
+
+  const handleClickOnAddToCart = () => {
+    addItem(beat)
+    showToast('Beat ajouté au panier')
+  }
+
   return (
     <Layout>
       <div className="text-center">
@@ -90,24 +93,14 @@ export default function BeatPage({
               </div>
               <section>
                 <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptas iure dolores saepe, ratione esse quibusdam mollitia
-                    quia id soluta sit optio quam aut enim tenetur explicabo
-                    illum magnam maiores nulla! Numquam vero deserunt nisi
-                    praesentium ab tempore fuga dolorum expedita nobis nesciunt,
-                    accusamus fugiat velit fugit minus eaque enim perferendis
-                    ipsa nostrum, aliquam magni ut. Sed dolor maxime at. Odio
-                    labore vel quae ea repellat expedita similique, a ducimus
-                    obcaecati!
-                  </p>
+                  <p>{beat.description}</p>
                   <p className="text-2xl font-bold my-4">
                     PRIX : {beat.price} €
                   </p>
                   {loggedUser?.id !== beat.user_id && (
                     <button
                       className="btn bg-beatsflow-green my-4"
-                      onClick={() => addItem(beat)}
+                      onClick={handleClickOnAddToCart}
                     >
                       Ajouter au panier
                     </button>
