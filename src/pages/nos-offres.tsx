@@ -1,13 +1,22 @@
 import Layout from '@/components/Layout'
 
+interface Plan {
+  name: string
+  description: string
+  price: number
+  features: string[]
+  callToAction: string
+}
+
 export default function NosOffres() {
-  const plans = [
+  const plans: Plan[] = [
     {
       name: 'Gratuit',
       description:
         'Si vous êtes un beatmaker débutant dans le domaine de la musique ou si vous souhaitez simplement essayer la plateforme Beats Flow.',
       price: 0,
       features: ['30% de commission', '10 uploads', 'Paiement par Stripe'],
+      callToAction: 'Se lancer gratuitement',
     },
     {
       name: 'Édition Standard',
@@ -20,6 +29,7 @@ export default function NosOffres() {
         'Paiement par Stripe',
         'Messages privés avec les acheteurs/vendeurs',
       ],
+      callToAction: "Passer à l'édition standard",
     },
     {
       name: 'Édition Pro',
@@ -32,6 +42,7 @@ export default function NosOffres() {
         'Paiement par Stripe',
         'Messages privés avec les acheteurs/vendeurs',
       ],
+      callToAction: "Passer à l'édition pro",
     },
   ]
 
@@ -45,23 +56,23 @@ export default function NosOffres() {
             </h3>
           </div>
           <div className="mt-8 space-y-6 justify-center gap-6 sm:grid sm:grid-cols-2 sm:space-y-0 lg:grid-cols-3">
-            {plans.map((item, idx) => (
+            {plans.map((plan, idx) => (
               <div
                 key={idx}
                 className="relative flex-1 flex items-stretch flex-col p-8 rounded-xl border-2 bg-gray-100"
               >
                 <div className="text-center text-gray-800">
-                  <span className="text-xl font-bold">{item.name}</span>
-                  <div className="mt-2 text-sm">{item.description}</div>
+                  <span className="text-xl font-bold">{plan.name}</span>
+                  <div className="mt-2 text-sm">{plan.description}</div>
                   <div className="mt-4 text-gray-800 text-3xl font-semibold">
-                    {item.price} &euro;
+                    {plan.price} &euro;
                     <span className="text-xl font-normal">/mois</span> (
-                    {item.price * 12} &euro;
+                    {plan.price * 12} &euro;
                     <span className="text-xl font-normal">/an</span>)
                   </div>
                 </div>
                 <ul className="py-8 space-y-3">
-                  {item.features.map((featureItem, idx) => (
+                  {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-5">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -75,13 +86,13 @@ export default function NosOffres() {
                           clip-rule="evenodd"
                         ></path>
                       </svg>
-                      {featureItem}
+                      {feature}
                     </li>
                   ))}
                 </ul>
                 <div className="flex-1 flex items-end">
                   <button className="px-3 py-3 rounded-lg w-full font-semibold text-sm duration-150 text-white bg-beatsflow-green hover:bg-beatsflow-green-hover active:bg-green-800">
-                    Get Started
+                    {plan.callToAction}
                   </button>
                 </div>
               </div>

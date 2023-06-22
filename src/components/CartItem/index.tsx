@@ -1,7 +1,7 @@
 import useCartContext from '@/helpers/useCartContext'
 import { CartItem } from '@/types/cartItem'
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React from 'react'
 
 export default function CartItem({ beat }: { beat: CartItem }) {
   const { removeItem } = useCartContext()

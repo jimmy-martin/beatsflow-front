@@ -54,6 +54,14 @@ export default function Panier() {
         {cart.map((beat) => (
           <CartItem key={beat.id} beat={beat} />
         ))}
+        {!isCartEmpty && (
+          <button
+            className="text-red-500 hover:text-red-600 text-xl m-4"
+            onClick={() => clearCart()}
+          >
+            Tout supprimer
+          </button>
+        )}
         <div className="flex items-center justify-between mt-8">
           <h2 className="text-2xl font-semibold">Total:</h2>
           <p className="text-2xl font-semibold">{total}€</p>

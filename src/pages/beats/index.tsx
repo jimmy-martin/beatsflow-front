@@ -1,21 +1,15 @@
 import Beat from '@/components/Beat'
 import FilterPanel from '@/components/FilterPanel'
 import Layout from '@/components/Layout'
+import useCategoriesContext from '@/helpers/useCategoriesContext'
 import { supabase } from '@/lib/supabaseClient'
 import { BeatInterface } from '@/types/beat'
-import { CategoryInterface } from '@/types/category'
 import { GetServerSideProps } from 'next'
 import { useState } from 'react'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context
   const categoryId = query.categorie
-
-  const { data: categories, error: categoriesError } = await supabase
-    .from('category')
-    .select('*')
-
-  if (categoriesError) console.log('Error: ', categoriesError)
 
   if (!categoryId) {
     const { data: beats, error } = await supabase
@@ -25,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         initialBeats: beats,
-        categories,
       },
     }
   } else {
@@ -37,7 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         initialBeats: beats,
-        categories,
       },
     }
   }
@@ -45,12 +37,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function Beats({
   initialBeats,
-  categories,
 }: {
   initialBeats: BeatInterface[]
-  categories: CategoryInterface[]
 }) {
   const [searchValue, setSearchValue] = useState('')
+
+  const { categories } = useCategoriesContext()
+
+  if (!categories) return null
 
   const filteredBeats = initialBeats.filter((beat) => {
     const searchTerm = searchValue.toLowerCase()
