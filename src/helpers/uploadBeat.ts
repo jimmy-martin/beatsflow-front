@@ -32,7 +32,7 @@ export const createBeat = async ({
       url,
       image_url:
         image_url ||
-        'https://zucowcwtsjlptsgvimzf.supabase.co/storage/v1/object/public/beats_images/home-beats-placeholder.png',
+        'https://zftucfqcjmqbkobajvbt.supabase.co/storage/v1/object/public/beatsflow/placeholders/home-beats-placeholder.png',
     })
     .select('*')
     .single()
