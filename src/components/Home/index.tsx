@@ -15,6 +15,7 @@ export default function Home() {
               objectFit: 'cover',
               objectPosition: 'center',
             }}
+            priority
           />
         </div>
         <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:items-center relative">
