@@ -23,7 +23,7 @@ export default function Hover({ beat }: { beat: BeatInterface }) {
       <Image
         className="w-full md:w-72 block rounded mx-auto"
         src={image_url}
-        alt=""
+        alt="beat image"
         width={150}
         height={150}
       />

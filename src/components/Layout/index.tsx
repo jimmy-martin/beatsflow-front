@@ -12,6 +12,7 @@ export default function Layout({ children }: LayoutProps) {
   const { toast } = useToastContext()
   return (
     <>
+      <title>BeatsFlow</title>
       <Header />
       {children}
       {toast && <Toast message={toast} />}

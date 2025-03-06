@@ -20,7 +20,7 @@ export default function Post({
       <Image
         src={imageUrl}
         loading="lazy"
-        alt={title}
+        alt="post image"
         className="w-full rounded-lg"
         width={150}
         height={150}
