@@ -1,16 +1,16 @@
 import HomeSection from '../HomeSection'
 import Beat from '@/components/Beat'
 import { supabase } from '@/lib/supabaseClient'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { useEffect, useState } from 'react'
 
 export default function BeatSection() {
-  const [beats, setBeats] = useState<BeatInterface[]>([])
+  const [beats, setBeats] = useState<BeatWithUserAndCategoryInterface[]>([])
 
   async function getLatestBeats() {
     const { data } = await supabase
       .from('beat')
-      .select()
+      .select('*, user(username), category(name)')
       .limit(4)
       .order('created_at', { ascending: false })
 

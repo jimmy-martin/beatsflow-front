@@ -3,7 +3,7 @@ import FilterPanel from '@/components/FilterPanel'
 import Layout from '@/components/Layout'
 import useCategoriesContext from '@/helpers/useCategoriesContext'
 import { supabase } from '@/lib/supabaseClient'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { GetServerSideProps } from 'next'
 import { useState } from 'react'
 
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } else {
     const { data: beats, error } = await supabase
       .from('beat')
-      .select(`*, user (username)`)
+      .select(`*, user (username), category (name)`)
       .eq('category_id', categoryId)
     if (error) console.log('Error: ', error)
     return {
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Beats({
   initialBeats,
 }: {
-  initialBeats: BeatInterface[]
+  initialBeats: BeatWithUserAndCategoryInterface[]
 }) {
   const [searchValue, setSearchValue] = useState('')
 

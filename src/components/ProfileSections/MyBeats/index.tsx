@@ -1,18 +1,18 @@
 import Beat from '@/components/Beat'
 import useAuthContext from '@/helpers/useAuthContext'
 import { supabase } from '@/lib/supabaseClient'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { useEffect, useState } from 'react'
 
 export default function MyBeats() {
   const { loggedUser } = useAuthContext()
 
-  const [beats, setBeats] = useState<BeatInterface[]>([])
+  const [beats, setBeats] = useState<BeatWithUserAndCategoryInterface[]>([])
 
   const getBeats = async () => {
     const { data: beats, error } = await supabase
       .from('beat')
-      .select('*')
+      .select('*, user(username), category(name)')
       .eq('user_id', loggedUser?.id)
 
     if (error) {

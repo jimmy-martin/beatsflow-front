@@ -5,7 +5,7 @@ import useCartContext from '@/helpers/useCartContext'
 import useCategoriesContext from '@/helpers/useCategoriesContext'
 import useToastContext from '@/helpers/useToastContext'
 import { supabase } from '@/lib/supabaseClient'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { CategoryInterface } from '@/types/category'
 import { UserInterface } from '@/types/user'
 import { GetServerSideProps } from 'next'
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { data: beat, error } = await supabase
     .from('beat')
-    .select('*')
+    .select('*, user(username), category(name)')
     .eq('id', id)
     .single()
 
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { data: similarBeats } = await supabase
     .from('beat')
-    .select('*')
+    .select('*, user(username), category(name)')
     .eq('user_id', beat.user_id)
     .neq('id', beat.id)
     .limit(4)
@@ -54,9 +54,9 @@ export default function BeatPage({
   user,
   similarBeats,
 }: {
-  beat: BeatInterface
+  beat: BeatWithUserAndCategoryInterface
   user: UserInterface
-  similarBeats: BeatInterface[]
+  similarBeats: BeatWithUserAndCategoryInterface[]
 }) {
   const { addItem } = useCartContext()
   const { isLoggedUser, isLoadingUser, loggedUser } = useAuthContext()
