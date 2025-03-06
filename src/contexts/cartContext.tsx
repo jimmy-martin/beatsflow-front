@@ -1,11 +1,11 @@
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { CartItem } from '@/types/cartItem'
 import { createContext, useEffect, useState } from 'react'
 
 type CartContextType = {
   cart: CartItem[]
   total: number
-  addItem: (item: BeatInterface) => void
+  addItem: (item: BeatInterface | BeatWithUserAndCategoryInterface) => void
   removeItem: (id: number) => void
   clearCart: () => void
 }
@@ -40,7 +40,7 @@ export const CartProvider = ({ children }: CartProviderType) => {
     }
   }, [cart])
 
-  const addItem = (beat: BeatInterface) => {
+  const addItem = (beat: BeatInterface | BeatWithUserAndCategoryInterface) => {
     if (cart.find((item) => item.id === beat.id)) {
       return
     }

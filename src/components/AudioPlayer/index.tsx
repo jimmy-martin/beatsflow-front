@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-key */
 import AudioPlayerDescription from './components/Description'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import { useRouter } from 'next/router'
 import H5AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 
-export default function AudioPlayer({ beat }: { beat: BeatInterface }) {
+export default function AudioPlayer({
+  beat,
+}: {
+  beat: BeatInterface | BeatWithUserAndCategoryInterface
+}) {
   const { title, url, image_url } = beat
 
   const router = useRouter()

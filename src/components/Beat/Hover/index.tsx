@@ -1,9 +1,13 @@
 import { AudioContext } from '@/contexts/audioContext'
-import { BeatInterface } from '@/types/beat'
+import { BeatInterface, BeatWithUserAndCategoryInterface } from '@/types/beat'
 import Image from 'next/image'
 import { useContext } from 'react'
 
-export default function Hover({ beat }: { beat: BeatInterface }) {
+export default function Hover({
+  beat,
+}: {
+  beat: BeatInterface | BeatWithUserAndCategoryInterface
+}) {
   const { image_url } = beat
 
   const audioContext = useContext(AudioContext)
