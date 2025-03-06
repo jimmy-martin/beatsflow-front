@@ -33,7 +33,7 @@ export default function Header() {
                 src="/assets/logo-simple.png"
                 width={80}
                 height={30}
-                alt="logo"
+                alt="beatsflow logo"
               />
             </Link>
             <div className="lg:hidden">

@@ -39,7 +39,7 @@ export default function Connection() {
                 width={150}
                 height={150}
                 className="mx-auto"
-                alt="logo"
+                alt="beatsflow logo"
               />
             </Link>
             <div className="mt-5 space-y-2">
